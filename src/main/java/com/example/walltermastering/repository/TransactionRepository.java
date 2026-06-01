@@ -1,4 +1,10 @@
 package com.example.walltermastering.repository;
 
-public class TransactionRepository {
+import com.example.walltermastering.model.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+
+
+
 }
