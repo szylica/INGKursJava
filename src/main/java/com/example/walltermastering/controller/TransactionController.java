@@ -1,16 +1,15 @@
 package com.example.walltermastering.controller;
 
+import com.example.walltermastering.model.Category;
 import com.example.walltermastering.model.Income;
 import com.example.walltermastering.model.Outcome;
 import com.example.walltermastering.model.Transaction;
 import com.example.walltermastering.service.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -50,14 +49,27 @@ public class TransactionController {
     }
 
     @GetMapping("/api/get-outcomes")
-    public ResponseEntity<List<Transaction>> getAllOutcomes() {
-        List<Transaction> transactions = transactionService.getAllOutcomes();
+    public ResponseEntity<List<Outcome>> getAllOutcomes() {
+        List<Outcome> transactions = transactionService.getAllOutcomes();
         return ResponseEntity.ok(transactions);
     }
 
     @GetMapping("/api/get-incomes")
-    public ResponseEntity<List<Transaction>> getAllIncomes() {
-        List<Transaction> transactions = transactionService.getAllIncomes();
+    public ResponseEntity<List<Income>> getAllIncomes() {
+        List<Income> transactions = transactionService.getAllIncomes();
         return ResponseEntity.ok(transactions);
     }
+
+    @GetMapping("/api/get-outcome-by-cat")
+    public ResponseEntity<List<Outcome>> getOutcomesByCategory(@PathVariable Category category){
+        List<Outcome> transactions = transactionService.getTransactionsByCategory(category);
+        return ResponseEntity.ok(transactions);
+    }
+
+    @DeleteMapping("/api/delete-by-id")
+    public ResponseEntity<Void> deleteByID(@PathVariable Long id){
+        transactionService.deleteByID(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
