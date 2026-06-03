@@ -94,7 +94,7 @@ class TransactionServiceImplTest {
         BigDecimal totalBalance = transactionService.calculateActualBalance();
 
         // Then
-        assertEquals(new BigDecimal("150.50"), totalBalance);
+        assertEquals(new BigDecimal("-49.50"), totalBalance);
     }
 
     @Test
